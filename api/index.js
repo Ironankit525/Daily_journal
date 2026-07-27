@@ -7,5 +7,13 @@ export default async function handler(req, res) {
   } catch (err) {
     console.error('Vercel serverless DB connect error:', err);
   }
-  return app(req, res);
+
+  return new Promise((resolve) => {
+    app(req, res, (err) => {
+      if (err) {
+        res.status(500).json({ error: err.message || 'Server error' });
+      }
+      resolve();
+    });
+  });
 }
