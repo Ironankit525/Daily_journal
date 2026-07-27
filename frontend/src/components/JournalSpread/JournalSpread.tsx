@@ -314,7 +314,7 @@ export default function JournalSpread({
 
         <div className="mt-6 pt-2 border-t border-dashed border-[#1A1A1A]/40 dark:border-white/40 text-right">
           <span className="text-lg sm:text-xl font-bold italic tracking-wide">
-            ankit remember "Reality is negotiable"
+            {user?.username || 'ankit'} remember "Reality is negotiable"
           </span>
         </div>
 
