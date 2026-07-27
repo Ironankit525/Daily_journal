@@ -81,17 +81,10 @@ export default function ProgressGraph({ monthData, habits, entries }: ProgressGr
   return (
     <div className="mt-6 sm:mt-8 bg-[#2A2E37] border border-[#3E4450] rounded-xl sm:rounded-2xl p-3 sm:p-6 shadow-2xl font-sans text-white relative select-none">
       {/* Header Bar matching reference image */}
-      <div className="flex items-center justify-between mb-4 sm:mb-6">
-        <h3 className="text-xs sm:text-base font-bold tracking-wider text-gray-200 uppercase truncate pr-2">
+      <div className="mb-4 sm:mb-6">
+        <h3 className="text-xs sm:text-base font-bold tracking-wider text-gray-200 uppercase truncate">
           DAILY PROGRESS GRAPH (AUTOMATICALLY GENERATED FROM TRACKER DATA)
         </h3>
-        <button
-          type="button"
-          className="text-gray-400 hover:text-white transition-colors text-sm sm:text-base"
-          title="Graph Settings"
-        >
-          ⚙️
-        </button>
       </div>
 
       {/* Responsive Graph Container Height */}
