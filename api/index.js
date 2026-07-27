@@ -4,16 +4,9 @@ import connectDB from '../backend/src/config/db.js';
 export default async function handler(req, res) {
   try {
     await connectDB();
+    return app(req, res);
   } catch (err) {
-    console.error('Vercel serverless DB connect error:', err);
+    console.error('Serverless connection error:', err);
+    return res.status(500).json({ error: `Serverless DB Connection Error: ${err.message}` });
   }
-
-  return new Promise((resolve) => {
-    app(req, res, (err) => {
-      if (err) {
-        res.status(500).json({ error: err.message || 'Server error' });
-      }
-      resolve();
-    });
-  });
 }

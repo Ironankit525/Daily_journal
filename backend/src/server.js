@@ -17,30 +17,34 @@ const PORT = process.env.PORT || 3001;
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ limit: '10mb' }));
 
-// Routes supporting both /api/* and direct /* (for Vercel serverless routing)
-app.use('/api/auth', authRouter);
+// Strip duplicate /api prefix if present in Vercel serverless requests
+app.use((req, res, next) => {
+  if (req.url.startsWith('/api/')) {
+    req.url = req.url.substring(4); // e.g. /api/auth/login -> /auth/login
+  }
+  next();
+});
+
+// Routes
 app.use('/auth', authRouter);
-
-app.use('/api/habits', habitsRouter);
 app.use('/habits', habitsRouter);
-
-app.use('/api/habit-entries', habitEntriesRouter);
 app.use('/habit-entries', habitEntriesRouter);
-
-app.use('/api/moods', moodsRouter);
 app.use('/moods', moodsRouter);
-
-app.use('/api/goals-notes', goalsNotesRouter);
 app.use('/goals-notes', goalsNotesRouter);
 
 // Health check
-app.get(['/api/health', '/health'], (req, res) => {
+app.get(['/health', '/api/health'], (req, res) => {
   res.json({
     status: 'ok',
     environment: process.env.NODE_ENV || 'development',
     dbState: process.env.MONGO_URI || process.env.MONGODB_URI ? 'Atlas URI Configured' : 'Missing MONGO_URI',
     timestamp: new Date().toISOString(),
   });
+});
+
+// JSON 404 Fallback for unmatched API routes
+app.use((req, res) => {
+  res.status(404).json({ error: `API route not found: ${req.method} ${req.originalUrl || req.url}` });
 });
 
 // Global Error handling
