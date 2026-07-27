@@ -17,12 +17,6 @@ const PORT = process.env.PORT || 3001;
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ limit: '10mb' }));
 
-// Ensure MongoDB Atlas connection for serverless invocations
-app.use(async (req, res, next) => {
-  await connectDB();
-  next();
-});
-
 // Routes supporting both /api/* and direct /* (for Vercel serverless routing)
 app.use('/api/auth', authRouter);
 app.use('/auth', authRouter);
