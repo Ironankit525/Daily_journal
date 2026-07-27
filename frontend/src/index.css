@@ -1,0 +1,323 @@
+@import "tailwindcss";
+
+/* ─── Design System: "Bullet Journal" ─── */
+
+@theme {
+  /* Notebook paper */
+  --color-surface: #FDF8F0;
+  --color-surface-dark: #1C1B19;
+  --color-card: #FDF8F0;
+  --color-card-dark: #28261F;
+  --color-card-hover: #F8F2E8;
+  --color-card-hover-dark: #302E26;
+
+  /* Ink blue accent — like a ballpoint pen */
+  --color-accent: #2B4A8C;
+  --color-accent-light: #3A5FA0;
+  --color-accent-muted: #2B4A8C22;
+
+  /* Ink colors */
+  --color-ink: #1A1A1A;
+  --color-ink-dark: #E5DFD5;
+  --color-ink-secondary: #6B6560;
+  --color-ink-secondary-dark: #9E9890;
+
+  /* State colors — pen ink style */
+  --color-done: #1A6B3A;
+  --color-done-bg: #1A6B3A18;
+  --color-missed: #C44030;
+  --color-missed-bg: #C4403018;
+  --color-partial: #B8860B;
+  --color-partial-bg: #B8860B18;
+
+  /* Mood scale colors */
+  --color-mood-0: #1A6B3A;
+  --color-mood-1: #4A7B8C;
+  --color-mood-2: #6B6BAA;
+  --color-mood-3: #C44030;
+  --color-mood-4: #8B7355;
+  --color-mood-5: #7B4A6B;
+
+  /* Grid lines — faint blue like graph paper */
+  --color-border: #C5D0DC;
+  --color-border-dark: #3A3830;
+  --color-grid: #D0D8E4;
+  --color-grid-dark: #333028;
+
+  /* Fonts */
+  --font-heading: 'Caveat', cursive;
+  --font-body: 'Patrick Hand', 'Caveat', cursive;
+  --font-mono: 'Inter', system-ui, sans-serif;
+
+  /* Shadows — very subtle, like paper depth */
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 2px 6px rgba(0,0,0,0.06);
+  --shadow-card-dark: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* ─── Base Styles ─── */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-body);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  /* Faint ruled-paper lines */
+  background-image:
+    repeating-linear-gradient(
+      transparent,
+      transparent 27px,
+      #D0D8E440 27px,
+      #D0D8E440 28px
+    );
+  background-size: 100% 28px;
+}
+
+html.dark body {
+  background-color: var(--color-surface-dark);
+  color: var(--color-ink-dark);
+  background-image:
+    repeating-linear-gradient(
+      transparent,
+      transparent 27px,
+      #333028 27px,
+      #333028 28px
+    );
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+h2 {
+  font-size: 1.8rem;
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--color-accent-muted);
+  text-underline-offset: 4px;
+}
+
+/* ─── Scrollbar ─── */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
+}
+html.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-border-dark);
+}
+
+/* ─── Signature Wave Divider — like a hand-drawn line ─── */
+.wave-divider {
+  width: 100%;
+  height: 20px;
+  opacity: 0.4;
+  margin: 0.75rem 0;
+  color: var(--color-ink-secondary);
+}
+html.dark .wave-divider {
+  opacity: 0.25;
+}
+
+/* ─── Animations ─── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+.animate-scale-in {
+  animation: scaleIn 0.2s ease-out;
+}
+.animate-pulse-soft {
+  animation: pulse-soft 1.5s ease-in-out infinite;
+}
+
+/* ─── Card — looks like a page/section of the notebook ─── */
+.card {
+  background: var(--color-card);
+  border-radius: 2px;
+  box-shadow: none;
+  border: 1.5px solid var(--color-ink);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  position: relative;
+}
+
+/* Notebook red margin line on cards */
+.card::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+  background: #C4403040;
+  pointer-events: none;
+}
+
+html.dark .card {
+  background: var(--color-card-dark);
+  border-color: var(--color-ink-dark);
+  box-shadow: none;
+}
+
+html.dark .card::before {
+  background: #C4403025;
+}
+
+/* ─── Status Cell Styles — bold pen marks ─── */
+.cell-done {
+  background: var(--color-done-bg);
+  color: var(--color-done);
+  font-weight: 700;
+}
+.cell-missed {
+  background: var(--color-missed-bg);
+  color: var(--color-missed);
+  font-weight: 700;
+}
+.cell-partial {
+  background: var(--color-partial-bg);
+  color: var(--color-partial);
+  font-weight: 700;
+}
+
+/* ─── Input Styles — underline like writing on a line ─── */
+.input-clean {
+  border: none;
+  border-bottom: 1.5px solid var(--color-ink);
+  border-radius: 0;
+  padding: 0.35rem 0.5rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  background: transparent;
+  color: var(--color-ink);
+  transition: border-color 0.2s ease;
+  outline: none;
+  width: 100%;
+}
+
+.input-clean:focus {
+  border-color: var(--color-accent);
+  box-shadow: none;
+}
+
+html.dark .input-clean {
+  background: transparent;
+  border-color: var(--color-ink-dark);
+  color: var(--color-ink-dark);
+}
+
+/* ─── Button Styles — hand-drawn box ─── */
+.btn-primary {
+  background: var(--color-accent);
+  color: white;
+  border: 1.5px solid var(--color-accent);
+  border-radius: 2px;
+  padding: 0.4rem 0.9rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-light);
+  border-color: var(--color-accent-light);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-ink-secondary);
+  border: 1px dashed var(--color-ink-secondary);
+  border-radius: 2px;
+  padding: 0.35rem 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-ghost:hover {
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+  background: var(--color-card-hover);
+}
+
+html.dark .btn-ghost {
+  border-color: var(--color-ink-secondary-dark);
+  color: var(--color-ink-secondary-dark);
+}
+
+html.dark .btn-ghost:hover {
+  color: var(--color-ink-dark);
+  border-color: var(--color-ink-dark);
+  background: var(--color-card-hover-dark);
+}
+
+/* ─── Tooltip ─── */
+.recharts-tooltip-wrapper {
+  outline: none !important;
+}
+
+/* ─── Table/Grid — graph paper look ─── */
+table {
+  border-collapse: collapse;
+  font-family: var(--font-body);
+}
+
+table th,
+table td {
+  border: 1px solid var(--color-grid);
+  font-size: 1rem;
+}
+
+html.dark table th,
+html.dark table td {
+  border-color: var(--color-grid-dark);
+}
+
+/* Today column highlight — like circling today's date */
+.today-col {
+  background: var(--color-accent-muted);
+}
+
+/* ─── Notebook margin line ─── */
+.notebook-margin {
+  border-left: 2px solid #C4403060;
+  padding-left: 1rem;
+}
