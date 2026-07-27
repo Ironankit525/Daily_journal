@@ -2,6 +2,8 @@
 
 A modern, minimalist digital bullet-journal monthly spread application for personal discipline, daily habit tracking, and progress analytics.
 
+🌐 **Live Demo**: [daily-journal-teal.vercel.app](https://daily-journal-teal.vercel.app)
+
 Inspired by real physical bullet journals, **Track & Thrive** combines authentic handwriting typography and grid paper aesthetics with modern web application features like MongoDB Atlas multi-user isolation, date-locked discipline rules, and interactive area progress graphs.
 
 ---
