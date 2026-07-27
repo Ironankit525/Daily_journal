@@ -17,6 +17,12 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
+// Serverless DB connection middleware
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
+
 // Routes
 app.use('/api/auth', authRouter);
 app.use('/api/habits', habitsRouter);
@@ -35,12 +41,13 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-// Start
-const start = async () => {
-  await connectDB();
-  app.listen(PORT, () => {
-    console.log(`✓ Server running on http://localhost:${PORT}`);
+// Start server if run directly
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  connectDB().then(() => {
+    app.listen(PORT, () => {
+      console.log(`✓ Server running on http://localhost:${PORT}`);
+    });
   });
-};
+}
 
-start();
+export default app;
