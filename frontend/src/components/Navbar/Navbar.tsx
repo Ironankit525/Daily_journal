@@ -41,28 +41,44 @@ export default function Navbar({
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-4 mb-4 px-2 select-none">
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-4 px-1 sm:px-2 select-none">
       {/* App Title */}
-      <div className="flex items-center gap-3">
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-wide font-kalam text-[#E5DFD5]">
+      <div className="flex items-center justify-between w-full sm:w-auto">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide font-kalam text-[#E5DFD5]">
           📖 Daily Bullet Journal
         </h1>
+
+        {/* Mobile Profile Quick Trigger if user is logged in */}
+        {user && (
+          <button
+            type="button"
+            onClick={onOpenSettings}
+            className="sm:hidden w-9 h-9 flex items-center justify-center bg-[#242424] hover:bg-[#363636] active:scale-95 transition-all rounded-xl cursor-pointer overflow-hidden border border-[#444] text-[#CCCCCC] font-bold text-xs shadow-md"
+            title={`Account Settings (${user.username})`}
+          >
+            {avatar ? (
+              <img src={avatar} alt={user.username} className="w-full h-full object-cover" />
+            ) : (
+              <span>{user.username.charAt(0).toUpperCase()}</span>
+            )}
+          </button>
+        )}
       </div>
 
-      {/* Sleek Pill Navbar Container matching exact screenshot UI */}
-      <div className="bg-[#242424] border border-[#3A3A3A] rounded-xl p-1.5 px-2.5 inline-flex items-center gap-3 shadow-lg text-white">
+      {/* Sleek Mobile & Desktop Pill Navbar Container */}
+      <div className="w-full sm:w-auto bg-[#242424] border border-[#3A3A3A] rounded-xl p-1.5 px-3 flex items-center justify-between sm:justify-start gap-3 shadow-lg text-white">
         {/* Left Arrow Button */}
         <button
           type="button"
           onClick={handlePrevMonth}
-          className="w-8 h-8 flex items-center justify-center bg-[#363636] hover:bg-[#484848] active:scale-95 transition-all rounded-lg cursor-pointer text-[#CCCCCC] font-bold text-sm"
+          className="w-9 h-9 sm:w-8 sm:h-8 flex items-center justify-center bg-[#363636] hover:bg-[#484848] active:scale-90 transition-all rounded-lg cursor-pointer text-[#CCCCCC] font-bold text-base sm:text-sm"
           title="Previous Month"
         >
           ‹
         </button>
 
         {/* Center Month Year text */}
-        <span className="font-bold tracking-widest text-xs sm:text-sm text-[#EEEEEE] font-sans px-1 min-w-[120px] text-center">
+        <span className="font-bold tracking-widest text-xs sm:text-sm text-[#EEEEEE] font-sans px-2 min-w-[120px] text-center flex-1 sm:flex-none">
           {monthNameUpper} {monthData.year}
         </span>
 
@@ -70,18 +86,18 @@ export default function Navbar({
         <button
           type="button"
           onClick={handleNextMonth}
-          className="w-8 h-8 flex items-center justify-center bg-[#363636] hover:bg-[#484848] active:scale-95 transition-all rounded-lg cursor-pointer text-[#CCCCCC] font-bold text-sm"
+          className="w-9 h-9 sm:w-8 sm:h-8 flex items-center justify-center bg-[#363636] hover:bg-[#484848] active:scale-90 transition-all rounded-lg cursor-pointer text-[#CCCCCC] font-bold text-base sm:text-sm"
           title="Next Month"
         >
           ›
         </button>
 
-        {/* Profile Avatar Button following exact same UI (#363636 rounded-lg square) */}
+        {/* Desktop Profile Avatar Button */}
         {user && (
           <button
             type="button"
             onClick={onOpenSettings}
-            className="w-8 h-8 flex items-center justify-center bg-[#363636] hover:bg-[#484848] active:scale-95 transition-all rounded-lg cursor-pointer overflow-hidden border border-[#444] text-[#CCCCCC] font-bold text-xs shadow-xs"
+            className="hidden sm:flex w-8 h-8 items-center justify-center bg-[#363636] hover:bg-[#484848] active:scale-95 transition-all rounded-lg cursor-pointer overflow-hidden border border-[#444] text-[#CCCCCC] font-bold text-xs shadow-xs"
             title={`Account Settings (${user.username})`}
           >
             {avatar ? (

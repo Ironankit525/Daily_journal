@@ -36,45 +36,45 @@ export default function AuthModal({ onLogin, onRegister, dark }: AuthModalProps)
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in font-kalam">
-      <div className="bg-[#FAF5EC] dark:bg-[#25221C] border-2 border-[#1A1A1A] dark:border-[#666] p-6 sm:p-8 max-w-md w-full rounded-xs shadow-2xl text-[#1A1A1A] dark:text-[#E5DFD5]">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 z-50 animate-fade-in font-kalam overflow-y-auto">
+      <div className="bg-[#FAF5EC] dark:bg-[#25221C] border-2 border-[#1A1A1A] dark:border-[#666] p-5 sm:p-8 max-w-md w-full rounded-xs shadow-2xl text-[#1A1A1A] dark:text-[#E5DFD5] my-auto">
         
-        <div className="text-center mb-6 border-b-2 border-[#1A1A1A] dark:border-[#555] pb-3">
-          <h2 className="text-3xl font-bold tracking-wide">
+        <div className="text-center mb-5 border-b-2 border-[#1A1A1A] dark:border-[#555] pb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-wide">
             {isRegister ? '📝 Create Account' : '🔑 Sign In'}
           </h2>
-          <p className="text-sm opacity-70 mt-1">
+          <p className="text-xs sm:text-sm opacity-70 mt-1">
             Personal Bullet Journal Tracker
           </p>
         </div>
 
         {error && (
-          <div className="mb-4 p-2 bg-red-100 dark:bg-red-900/40 border border-red-500 text-red-700 dark:text-red-300 text-sm font-bold rounded">
+          <div className="mb-4 p-2 bg-red-100 dark:bg-red-900/40 border border-red-500 text-red-700 dark:text-red-300 text-xs sm:text-sm font-bold rounded">
             ⚠️ {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:gap-4">
           <div>
-            <label className="block text-sm font-bold mb-1">Username</label>
+            <label className="block text-xs sm:text-sm font-bold mb-1">Username</label>
             <input
               type="text"
               placeholder="Enter username..."
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full bg-white dark:bg-black/40 border-2 border-[#1A1A1A] dark:border-[#555] px-3 py-2 outline-none font-kalam text-base rounded-xs"
+              className="w-full bg-white dark:bg-black/40 border-2 border-[#1A1A1A] dark:border-[#555] px-3 py-2 outline-none font-kalam text-sm sm:text-base rounded-xs"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-bold mb-1">Password</label>
+            <label className="block text-xs sm:text-sm font-bold mb-1">Password</label>
             <input
               type="password"
               placeholder="Enter password..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-white dark:bg-black/40 border-2 border-[#1A1A1A] dark:border-[#555] px-3 py-2 outline-none font-kalam text-base rounded-xs"
+              className="w-full bg-white dark:bg-black/40 border-2 border-[#1A1A1A] dark:border-[#555] px-3 py-2 outline-none font-kalam text-sm sm:text-base rounded-xs"
               required
             />
           </div>
@@ -82,13 +82,13 @@ export default function AuthModal({ onLogin, onRegister, dark }: AuthModalProps)
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 w-full py-2 bg-[#1A1A1A] dark:bg-[#E5DFD5] text-[#FAF5EC] dark:text-[#1A1A1A] font-bold text-lg rounded-xs hover:opacity-90 transition-opacity"
+            className="mt-2 w-full py-2.5 bg-[#1A1A1A] dark:bg-[#E5DFD5] text-[#FAF5EC] dark:text-[#1A1A1A] font-bold text-base sm:text-lg rounded-xs hover:opacity-90 active:scale-95 transition-all cursor-pointer shadow-md"
           >
             {loading ? 'Processing...' : isRegister ? 'Create Account' : 'Sign In'}
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm border-t border-dashed border-[#1A1A1A]/30 dark:border-white/30 pt-4">
+        <div className="mt-5 text-center text-xs sm:text-sm border-t border-dashed border-[#1A1A1A]/30 dark:border-white/30 pt-3">
           <span className="opacity-70">
             {isRegister ? 'Already have an account?' : "Don't have an account?"}
           </span>{' '}
@@ -98,7 +98,7 @@ export default function AuthModal({ onLogin, onRegister, dark }: AuthModalProps)
               setIsRegister(!isRegister);
               setError('');
             }}
-            className="font-bold underline hover:text-amber-700 dark:hover:text-amber-400 ml-1"
+            className="font-bold underline hover:text-amber-700 dark:hover:text-amber-400 ml-1 cursor-pointer"
           >
             {isRegister ? 'Sign In' : 'Create One'}
           </button>

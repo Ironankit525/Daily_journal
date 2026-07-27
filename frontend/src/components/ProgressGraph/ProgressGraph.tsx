@@ -65,12 +65,12 @@ export default function ProgressGraph({ monthData, habits, entries }: ProgressGr
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-[#23272E]/95 border border-[#454C59] px-4 py-2.5 rounded-xl shadow-2xl font-sans backdrop-blur-md text-white text-xs">
+        <div className="bg-[#23272E]/95 border border-[#454C59] p-2.5 sm:px-4 sm:py-2.5 rounded-xl shadow-2xl font-sans backdrop-blur-md text-white text-[11px] sm:text-xs z-50">
           <div className="text-gray-400 font-semibold mb-0.5 tracking-wider">
             DATE: <span className="text-white font-bold">{monthNameShort} {data.day}</span>
           </div>
           <div className="text-gray-300 font-medium">
-            COMPLETION RATE: <span className="text-amber-400 font-bold">{data.percent}% ({data.label})</span>
+            RATE: <span className="text-amber-400 font-bold">{data.percent}% ({data.label})</span>
           </div>
         </div>
       );
@@ -79,27 +79,27 @@ export default function ProgressGraph({ monthData, habits, entries }: ProgressGr
   };
 
   return (
-    <div className="mt-8 bg-[#2A2E37] border border-[#3E4450] rounded-2xl p-5 sm:p-6 shadow-2xl font-sans text-white relative select-none">
+    <div className="mt-6 sm:mt-8 bg-[#2A2E37] border border-[#3E4450] rounded-xl sm:rounded-2xl p-3 sm:p-6 shadow-2xl font-sans text-white relative select-none">
       {/* Header Bar matching reference image */}
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-sm sm:text-base font-bold tracking-wider text-gray-200 uppercase">
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
+        <h3 className="text-xs sm:text-base font-bold tracking-wider text-gray-200 uppercase truncate pr-2">
           DAILY PROGRESS GRAPH (AUTOMATICALLY GENERATED FROM TRACKER DATA)
         </h3>
         <button
           type="button"
-          className="text-gray-400 hover:text-white transition-colors text-base"
+          className="text-gray-400 hover:text-white transition-colors text-sm sm:text-base"
           title="Graph Settings"
         >
           ⚙️
         </button>
       </div>
 
-      {/* Graph Area Chart */}
-      <div className="w-full h-64 sm:h-72">
+      {/* Responsive Graph Container Height */}
+      <div className="w-full h-52 sm:h-72">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={chartData}
-            margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+            margin={{ top: 10, right: 10, left: -25, bottom: 0 }}
           >
             <defs>
               <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
@@ -118,8 +118,8 @@ export default function ProgressGraph({ monthData, habits, entries }: ProgressGr
               dataKey="day"
               tickLine={false}
               axisLine={{ stroke: '#3A404D' }}
-              tick={{ fill: '#9CA3AF', fontSize: 12, fontWeight: 500 }}
-              interval={0}
+              tick={{ fill: '#9CA3AF', fontSize: 10, fontWeight: 500 }}
+              interval="preserveStartEnd"
             />
 
             <YAxis
@@ -128,7 +128,7 @@ export default function ProgressGraph({ monthData, habits, entries }: ProgressGr
               tickFormatter={(val) => `${val}%`}
               tickLine={false}
               axisLine={false}
-              tick={{ fill: '#9CA3AF', fontSize: 12, fontWeight: 500 }}
+              tick={{ fill: '#9CA3AF', fontSize: 10, fontWeight: 500 }}
             />
 
             <Tooltip content={<CustomTooltip />} />

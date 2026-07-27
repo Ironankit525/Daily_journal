@@ -106,27 +106,7 @@ npm run dev
 
 ---
 
-## 🔌 API Reference
 
-### **Authentication**
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `POST` | `/api/auth/register` | Register new user with username & password |
-| `POST` | `/api/auth/login` | Sign in existing user |
-| `GET` | `/api/auth/me` | Fetch current authenticated user info |
-| `PUT` | `/api/auth/change-password` | Update account password in MongoDB |
-
-### **Habits & Entries**
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `GET` | `/api/habits?month=YYYY-MM` | Fetch habits for specified month (auto-seeds 14 defaults if new user) |
-| `POST` | `/api/habits` | Add new habit |
-| `PUT` | `/api/habits/:id` | Rename / reorder habit |
-| `DELETE` | `/api/habits/:id` | Delete habit and clean up associated entries |
-| `GET` | `/api/habit-entries?month=YYYY-MM` | Fetch habit entries for month |
-| `PUT` | `/api/habit-entries` | Upsert daily habit entry status (`done`, `missed`, `partial`, `none`) |
-
----
 
 ## 📄 License
 
