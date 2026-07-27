@@ -7,15 +7,27 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 
-  const res = await fetch(`${API_BASE}${url}`, {
-    headers,
-    ...options,
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ error: 'Unknown error' }));
-    throw new Error(err.error || `HTTP ${res.status}`);
+  try {
+    const res = await fetch(`${API_BASE}${url}`, {
+      headers,
+      ...options,
+    });
+
+    if (!res.ok) {
+      let errorMessage = `HTTP ${res.status}`;
+      try {
+        const err = await res.json();
+        errorMessage = err.error || err.message || errorMessage;
+      } catch {
+        const text = await res.text().catch(() => '');
+        if (text && text.length < 200) errorMessage = text;
+      }
+      throw new Error(errorMessage);
+    }
+    return res.json();
+  } catch (err: any) {
+    throw new Error(err.message || 'Network or Server Error');
   }
-  return res.json();
 }
 
 export const api = {
